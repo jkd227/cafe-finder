@@ -98,3 +98,24 @@ function saveCafe(cafeJSON) {
         alert(`${cafe.name} is already in your saved list!`);
     }
 }
+
+function showSaved() {
+    const container = document.querySelector('.cards');
+    container.innerHTML = '';
+    // Parse through list of saved cafes and save information in variable 
+    const saved = JSON.parse(localStorage.getItem("savedCafes") || "[]");
+    if (saved.length === 0) {
+        container.innerHTML = "<p>No saved cafes yet!</p>";
+        return;
+    }
+    saved.forEach(cafe => {
+        const card = document.createElement('div');
+        card.className = 'location-card';
+        card.innerHTML = `
+          <img src="${cafe.photo}" alt="${cafe.name}" />
+          <h3>${cafe.name}</h3>
+          <p>⭐️ Rating: ${cafe.rating}</p>
+            `;
+            container.appendChild(card);
+        });
+}
