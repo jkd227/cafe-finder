@@ -1,4 +1,4 @@
-const apiKey = "AIzaSyDKs2Q8v2z5gNFTIkrBmNgg16fsdt5zYyM"; // restricted to my own domain
+//
 const useProxy = true;
 const proxy = "https://cors-anywhere.herokuapp.com";
 
