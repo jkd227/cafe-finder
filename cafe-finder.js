@@ -33,3 +33,41 @@ async function useLocation(lat, lng) {
         alert("Error fetching cafes.");
     }
 }
+
+function displayCards(cafes) {
+    const container = document.querySelector('.cards');
+    container.innerHTML = '';
+
+    cafes.forEach((cafe, i) => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'swipe-wrapper';
+        wrapper.style.zIndex = 200 - i;
+
+        const card = document.createElement("div");
+        card.className = "location-card";
+
+        // Get cafe photos to attach to card
+        const imgUrl = cafe.photos?.[0]?.photo_reference
+            ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${cafe.photos[0].photo_reference}&key=${apiKey}`
+            : "https://via.placeholder.com/250x150?text=No+Image";
+
+        // Store data about cafe
+        const cafeData = {
+            name: cafe.name,
+            place_id: cafe.place_id,
+            photo: imgUrl,
+            rating: cafe.rating || "N/A"
+        };
+
+        // HTML to create visual card
+        card.innerHTML = `
+            <img src="${cafeData.photo}" alt="${cafeData.name}" />
+            <h3>${cafeData.name}</h3>
+            <p>⭐️ Rating: ${cafeData.rating}</p>
+            <p><small>Swipe right to save 💖</small></p>
+        `;
+
+        wrapper.appendChild(card);
+        container.appendChild(wrapper);
+    });
+}
