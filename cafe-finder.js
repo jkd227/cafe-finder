@@ -70,4 +70,18 @@ function displayCards(cafes) {
         wrapper.appendChild(card);
         container.appendChild(wrapper);
     });
+
+    // Left/right swipe detection
+    const hammertime = new Hammer(wrapper);
+    hammertime.on("swipeleft", () => {
+    wrapper.style.transform = "translateX(-150%) rotate(-15deg)"; // move & fade away
+    wrapper.style.opacity = 0;
+    setTimeout(() => wrapper.remove(), 100);
+    });
+    hammertime.on("swiperight", () => {
+    saveCafe(JSON.stringify(cafeData));
+    wrapper.style.transform = "translateX(150%) rotate(15deg)";   // move & fade away
+    wrapper.style.opacity = 0;
+    setTimeout(() => wrapper.remove(), 100);
+    });
 }
