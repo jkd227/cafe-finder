@@ -85,3 +85,16 @@ function displayCards(cafes) {
     setTimeout(() => wrapper.remove(), 100);
     });
 }
+
+function saveCafe(cafeJSON) {
+    const cafe = JSON.parse(cafeJSON);
+    let saved = JSON.parse(localStorage.getItem('savedCafes') || '[]');
+    // If not saved, push current cafe into array of saved cafes
+    if (!saved.find((c) => c.place_id === cafe.place_id)) {
+        saved.push(cafe);
+        localStorage.setItem("savedCafes", JSON.stringify(saved));
+        alert(`${cafe.name} saved!`);
+    } else {
+        alert(`${cafe.name} is already in your saved list!`);
+    }
+}
